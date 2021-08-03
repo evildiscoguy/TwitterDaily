@@ -24,15 +24,17 @@ mentions = api.mentions_timeline(last_tweet, tweet_mode="extended")
 for mention in reversed(mentions):
     last_tweet = mention.id
 
+    # Change "#edgquote" to fit your own usage needs
     if "#edgquote" in mention.full_text.lower():
         try:
             random_quote = random.choice(quotes.json())
             quote_to_tweet = random_quote['text'] + " - " + random_quote['author']
-            # print(mention.full_text)
+
+            # Change "#edgquote" to fit your own usage needs
             message = quote_to_tweet + " #edgquote"
+
             api.create_favorite(mention.id)
             api.update_status(message, mention.id)
-            # print(message)
         except tweepy.error.TweepError as e:
             print(e)
 
